@@ -32,10 +32,10 @@ module RinhaDeBackend2
     config.api_only = true
 
     # Remove unsed middlewares
-    config.middleware.delete Rack::Runtime
-    config.middleware.delete ActionDispatch::RequestId
-    config.middleware.delete ActionDispatch::RemoteIp
-    config.middleware.delete Rack::ConditionalGet
-    config.middleware.delete Rack::ETag
+    # config.middleware.delete Rack::Runtime
+    # config.middleware.delete ActionDispatch::RequestId
+    # config.middleware.delete ActionDispatch::RemoteIp
+    # config.middleware.delete Rack::ConditionalGet
+    # config.middleware.delete Rack::ETag
   end
 end

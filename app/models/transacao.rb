@@ -11,7 +11,7 @@ class Transacao < ApplicationRecord
 
   private
     def update_saldo_cliente
-      cliente.update_column :saldo, saldo_futuro
+      cliente.update_columns saldo: saldo_futuro, updated_at: Time.current
     end
 
     def saldo_futuro
