@@ -15,6 +15,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_02_06_005649) do
     t.string "nome", null: false
     t.integer "limite", null: false
     t.integer "saldo", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transacoes", force: :cascade do |t|

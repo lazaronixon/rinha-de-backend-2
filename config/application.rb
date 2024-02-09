@@ -37,7 +37,5 @@ module RinhaDeBackend2
     config.middleware.delete Rack::Runtime
     config.middleware.delete ActionDispatch::RequestId
     config.middleware.delete ActionDispatch::RemoteIp
-    config.middleware.delete Rack::ConditionalGet
-    config.middleware.delete Rack::ETag
   end
 end
