@@ -38,8 +38,11 @@ if rails_env == "production"
   preload_app!
 end
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-port ENV.fetch("PORT") { 3000 }
+if rails_env == "production"
+  bind "unix:///rails/tmp/sockets/#{ENV["HOSTNAME"]}.sock"
+else
+  port ENV.fetch("PORT") { 3000 }
+end
 
 # Specifies the `environment` that Puma will run in.
 environment rails_env
