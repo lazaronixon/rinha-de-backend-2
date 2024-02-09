@@ -1,7 +1,7 @@
 class TransacoesController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
-      @cliente = Cliente.find(params[:cliente_id])
+      @cliente = Cliente.lock.find(params[:cliente_id])
       @cliente.transacoes.create!(transacao_parameters)
     end
   end

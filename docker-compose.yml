@@ -9,14 +9,15 @@ services:
       - RAILS_MAX_THREADS=3
       - RAILS_LOG_LEVEL=warn
       - RAILS_MASTER_KEY=e06d20a258ff5ebf58ec20aac1eeeaea
+      - DATABASE_URL=postgres://postgres:password@db:5432/rinha_de_backend_2
     volumes:
       - storage:/rails/storage
       - sockets:/rails/tmp/sockets
     deploy:
       resources:
         limits:
-          cpus: "0.65"
-          memory: "250MB"
+          cpus: "0.5"
+          memory: "150MB"
 
   api02:
     <<: *api
@@ -37,6 +38,29 @@ services:
         limits:
           cpus: "0.2"
           memory: "50MB"
+
+  db:
+   image: postgres
+   command: postgres -c config_file=/etc/postgresql/postgresql.conf
+   volumes:
+     - ./postgresql.conf:/etc/postgresql/postgresql.conf
+   environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+   deploy:
+      resources:
+        limits:
+          cpus: "0.3"
+          memory: "200MB"
+
+  db-migrator:
+    image: lazaronixon/rinha-de-backend-2
+    command: bin/wait-for db:5432 -- bin/rails db:prepare
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/rinha_de_backend_2
+      - RAILS_MASTER_KEY=e06d20a258ff5ebf58ec20aac1eeeaea
 
 volumes:
   storage:

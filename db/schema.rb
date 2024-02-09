@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2024_02_06_005649) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "clientes", force: :cascade do |t|
     t.string "nome", null: false
     t.integer "limite", null: false
@@ -21,7 +24,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_02_06_005649) do
     t.integer "valor", null: false
     t.string "tipo", limit: 1, null: false
     t.string "descricao", null: false
-    t.integer "cliente_id", null: false
+    t.bigint "cliente_id", null: false
     t.datetime "created_at", null: false
     t.index ["cliente_id"], name: "index_transacoes_on_cliente_id"
   end
