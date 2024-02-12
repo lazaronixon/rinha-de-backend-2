@@ -8,8 +8,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :clientes, only: [] do
-    resources :transacoes, only: :create
-    resource :extrato, only: :show
+  defaults format: :json do
+    resources :clientes, only: [] do
+      resources :transacoes, only: :create
+      resource :extrato, only: :show
+    end
   end
 end
