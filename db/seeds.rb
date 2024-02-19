@@ -8,10 +8,22 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Cliente.upsert_all([
-  { id: 1, nome: "o barato sai caro", limite: 100000 },
-  { id: 2, nome: "zan corp ltda", limite: 80000 },
-  { id: 3, nome: "les cruders", limite: 1000000 },
-  { id: 4, nome: "padaria joia de cocaia", limite: 10000000 },
-  { id: 5, nome: "kid mais", limite: 500000 }
-])
+ActiveRecord::Base.connected_to(role: :writing, shard: :shard_one) do
+  Cliente.create_with(nome: "o barato sai caro", limite: 100000).find_or_create_by(id: 1)
+end
+
+ActiveRecord::Base.connected_to(role: :writing, shard: :shard_two) do
+  Cliente.create_with(nome: "zan corp ltda", limite: 80000).find_or_create_by(id: 2)
+end
+
+ActiveRecord::Base.connected_to(role: :writing, shard: :shard_three) do
+  Cliente.create_with(nome: "les cruders", limite: 1000000).find_or_create_by(id: 3)
+end
+
+ActiveRecord::Base.connected_to(role: :writing, shard: :shard_four) do
+  Cliente.create_with(nome: "padaria joia de cocaia", limite: 10000000).find_or_create_by(id: 4)
+end
+
+ActiveRecord::Base.connected_to(role: :writing, shard: :shard_five) do
+  Cliente.create_with(nome: "kid mais", limite: 500000).find_or_create_by(id: 5)
+end
